@@ -71,6 +71,7 @@ while True:
     
     print("Iniciando Transcrição")
     print(f"Áudios na fila: {len(audios)}")
+    print("========================================================================================================")
 
     for audio in audios: #*Loop principal
         try:
@@ -83,7 +84,7 @@ while True:
             result = transcrever_audio(audio)
             print()
             print(f'Transcrição do áudio "{nomeSemExtensao}":\n"{result["text"]}"')
-            print("=================================================================")
+            print("========================================================================================================")
             
         except Exception as e:
             print(f"Erro ao transcrever áudio: {nomeSemExtensao}")
