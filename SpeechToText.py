@@ -27,6 +27,10 @@ def timer(stop_event):
         print(f"Tempo: {elapsed:.1f}s", end="\r")
         time.sleep(0.1)
 
+def carregar_modelo():
+    global model
+    model = whisper.load_model("small").to(device)
+
 
 base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__))) #! IMPORTANTE!! ESTE BLOCO DEVE VIR ANTES DE QUALQUER COISA
 ffmpeg_path = os.path.join(base_path, "ffmpeg.exe")
@@ -38,9 +42,16 @@ root.withdraw()
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-model = whisper.load_model("small").to(device) #* tiny/ base / small / medium / large
+model = None
+
+t_modelo = threading.Thread(target=carregar_modelo, daemon=True) #*carregando modelo
+t_modelo.start()
 
 input('Pressione "Enter" quando estiver pronto!')
+
+if t_modelo.is_alive():
+    print("Aguardando modelo carregar...")
+    t_modelo.join()
 
 while True:
     
