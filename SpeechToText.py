@@ -117,8 +117,6 @@ while True:
 
     break
 
-print("Eu te amo, minha princesinha S2")
-print("mwac mwac mwac")
 for i in range(3, 0, -1):
     print(f"Encerrando programa em: {i}s                                                        ", end="\r", flush=True)
     time.sleep(1)
